@@ -3,6 +3,15 @@
 # SuporteClinica — Instalador Bootstrap
 # =============================================================================
 
+# Se executado via pipe (curl | bash), baixar e re-executar do arquivo
+if [ ! -t 0 ]; then
+  TMPFILE=$(mktemp /tmp/sc-install-XXXXXX.sh)
+  curl -fsSL "https://raw.githubusercontent.com/MyEggsBR/suporteclinica-install/master/install.sh" -o "$TMPFILE" 2>/dev/null
+  chmod +x "$TMPFILE"
+  exec bash "$TMPFILE"
+  exit 0
+fi
+
 R='\033[0;31m' G='\033[0;32m' Y='\033[1;33m' B='\033[0;34m' C='\033[0;36m' BOLD='\033[1m' NC='\033[0m'
 
 clear
@@ -28,7 +37,7 @@ echo -e "  Cole o token de acesso abaixo e pressione ENTER:"
 echo -e "  ${Y}(O token não ficará visível enquanto você digita)${NC}"
 echo ""
 printf "  Token: "
-read -rs ACCESS_TOKEN </dev/tty
+read -rs ACCESS_TOKEN
 echo ""
 
 if [ -z "$ACCESS_TOKEN" ]; then
@@ -85,4 +94,4 @@ sleep 2
 
 # ── Executar instalador principal ────────────────────────────────────────────
 chmod +x "$INSTALL_DIR/install.sh"
-exec bash "$INSTALL_DIR/install.sh" </dev/tty
+exec bash "$INSTALL_DIR/install.sh"
