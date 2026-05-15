@@ -28,7 +28,7 @@ echo -e "  Cole o token de acesso abaixo e pressione ENTER:"
 echo -e "  ${Y}(O token não ficará visível enquanto você digita)${NC}"
 echo ""
 printf "  Token: "
-read -rs ACCESS_TOKEN
+read -rs ACCESS_TOKEN </dev/tty
 echo ""
 
 if [ -z "$ACCESS_TOKEN" ]; then
@@ -40,9 +40,10 @@ echo ""
 echo -e "  ${G}[✓]${NC} Token recebido. Verificando acesso..."
 
 # ── Verificar token ──────────────────────────────────────────────────────────
-HTTP_CODE=$(curl -sf -o /dev/null -w "%{http_code}" \
+HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
   -H "Authorization: token $ACCESS_TOKEN" \
-  "https://api.github.com/repos/MyEggsBR/Chatbot-Clinica-Medica" 2>/dev/null || echo "000")
+  "https://api.github.com/repos/MyEggsBR/Chatbot-Clinica-Medica" 2>/dev/null)
+[ -z "$HTTP_CODE" ] && HTTP_CODE="000"
 
 if [ "$HTTP_CODE" != "200" ]; then
   echo -e "  ${R}[✗]${NC} Token inválido ou sem acesso ao repositório (código: $HTTP_CODE)."
@@ -84,4 +85,4 @@ sleep 2
 
 # ── Executar instalador principal ────────────────────────────────────────────
 chmod +x "$INSTALL_DIR/install.sh"
-exec bash "$INSTALL_DIR/install.sh"
+exec bash "$INSTALL_DIR/install.sh" </dev/tty
