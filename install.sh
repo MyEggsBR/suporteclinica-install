@@ -9,14 +9,16 @@ clear
 echo -e "${BOLD}${B}"
 cat << 'EOF'
   ╔══════════════════════════════════════════════════════╗
-  ║       SuporteClinica — Instalação do Sistema         ║
+  ║         Sistema Clínicas Médicas                     ║
   ║   Bot WhatsApp + Agenda + Atendimento Integrado      ║
+  ║                                                      ║
+  ║   Feito por SuporteData TI  •  (63) 98401-2722       ║
   ╚══════════════════════════════════════════════════════╝
 EOF
 echo -e "${NC}"
 echo -e "  Este instalador irá baixar e configurar todo o sistema."
 echo -e "  ${Y}Pré-requisito:${NC} você precisa de um token de acesso fornecido"
-echo -e "  pelo suporte SuporteClinica para continuar."
+echo -e "  pela SuporteData TI para continuar."
 echo ""
 echo -e "  ${C}────────────────────────────────────────────────────────${NC}"
 echo ""
